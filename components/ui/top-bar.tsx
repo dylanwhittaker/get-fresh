@@ -1,12 +1,24 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import useCartStore from "@/stores/cart/cart-store";
 import { Image } from "expo-image";
-import { FC } from "react";
+import { useRouter } from "expo-router";
+import { FC, useMemo } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { Badge } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const TopBar: FC = () => {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const quantities = useCartStore((state) => state.quantities || 0);
+
+  const totalSelectedQuantity = useMemo(() => {
+    let total = 0;
+    Object.keys(quantities).forEach((key) => {
+      total += quantities[key];
+    });
+    return total;
+  }, [quantities]);
 
   return (
     <View
@@ -35,13 +47,13 @@ export const TopBar: FC = () => {
           borderless: true,
           radius: 30
         }}
-        onPress={() => {}}
+        onPress={() => router.push("/cart")}
         style={({ pressed }) => [
           styles.iconContainer,
           pressed && styles.pressed
         ]}
       >
-        <Badge>3</Badge>
+        {!!totalSelectedQuantity && <Badge>{totalSelectedQuantity}</Badge>}
         <IconSymbol
           size={310}
           color="#808080"

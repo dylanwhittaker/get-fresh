@@ -24,7 +24,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen
           name="(tabs)"
-          options={{ headerShown: false, title: "Home" }}
+          options={{ headerShown: false, title: "" }}
         />
         <Stack.Screen
           name="cart"
