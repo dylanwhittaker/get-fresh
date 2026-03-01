@@ -1,32 +1,26 @@
+import useCartStore from "@/stores/cart/cart-store";
+import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
-import { Image, ImageSource } from "expo-image";
+import { Image } from "expo-image";
 import { FC, memo } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Badge } from "react-native-paper";
 import { IconSymbol } from "../icon-symbol";
 
-export type ProductListItemProps = {
-  name: string;
-  quantity_available: number;
-  price: number;
-  image: ImageSource;
-  selectedQuantity?: number;
-  onQuantityChange?: (quantity: number) => void;
-};
+export type ProductListItemProps = Product;
 
 export const ProductListItem: FC<ProductListItemProps> = memo(
-  ({
-    name,
-    quantity_available,
-    price,
-    image,
-    selectedQuantity = 0,
-    onQuantityChange
-  }) => {
+  ({ name, quantity_available, price, image }) => {
     const formattedPrice = formatPrice(price);
+    const outOfStock = !quantity_available;
+
+    const selectedQuantity = useCartStore(
+      (state) => state.quantities[name] || 0
+    );
+    const setQuantity = useCartStore((state) => state.setQuantity);
 
     function incrementQuantity() {
-      onQuantityChange?.(selectedQuantity + 1);
+      setQuantity(name, selectedQuantity + 1);
     }
 
     return (
@@ -51,10 +45,10 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
           <Text
             style={[
               styles.subText,
-              !quantity_available && { fontWeight: 600, color: "#ba2b2b" }
+              outOfStock && { fontWeight: 600, color: "#ba2b2b" }
             ]}
           >
-            {quantity_available ? "In Stock" : "Out of stock"}
+            {outOfStock ? "Out of stock" : "In Stock"}
           </Text>
         </View>
 
@@ -69,14 +63,15 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
           {/* todo: Make the pressable a button variant */}
           <Pressable
             android_ripple={{
-              color: "rgba(202, 202, 202, 0.5)",
+              color: "rgba(139, 183, 92, 0.5)",
               foreground: true,
-              borderless: true
-              // radius: 30
+              radius: 30
             }}
+            disabled={outOfStock}
             onPress={incrementQuantity}
             style={({ pressed }) => [
               styles.pressable,
+              outOfStock && styles.disabledPressable,
               pressed && styles.pressed
             ]}
           >
@@ -144,6 +139,9 @@ const styles = StyleSheet.create({
     // margin: 5,
     borderRadius: 15,
     backgroundColor: "#268341"
+  },
+  disabledPressable: {
+    backgroundColor: "#8c8c8c"
   },
   pressed: {
     opacity: 0.7

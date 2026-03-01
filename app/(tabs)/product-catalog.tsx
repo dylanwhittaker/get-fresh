@@ -5,7 +5,8 @@ import {
 import { products } from "@/data/products";
 import { FlashList } from "@shopify/flash-list";
 import React, { useCallback, useMemo, useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Searchbar } from "react-native-paper";
 
 // ToDo: Make this component generic and reusable so it will accept data as T[]
 const DATA = products as unknown as ProductListItemProps[];
@@ -39,27 +40,18 @@ export default function ProductCatalog() {
 
   const renderItem = useCallback(
     ({ item }: any) => {
-      return (
-        <ProductListItem
-          {...item}
-          selectedQuantity={quantities[item.name] || 0}
-          onQuantityChange={(qty) =>
-            setQuantities((prev) => ({ ...prev, [item.name]: qty }))
-          }
-        />
-      );
+      return <ProductListItem {...item} />;
     },
     [quantities]
   );
 
   return (
     <View style={styles.container}>
-      {/* Search Input */}
-      <TextInput
+      <Searchbar
         placeholder="Search products..."
         value={search}
         onChangeText={setSearch}
-        style={styles.input}
+        style={styles.search}
       />
 
       {/* FlashList */}
@@ -77,11 +69,10 @@ export default function ProductCatalog() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
 
-  input: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 8
+  search: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10
   },
 
   itemContainer: {
