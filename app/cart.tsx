@@ -3,13 +3,14 @@ import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { FlashList } from "@shopify/flash-list";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
+import { Button } from "react-native-paper";
 
 export default function CartPreview() {
-  const [search, setSearch] = useState("");
-
   const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
+  // const orderTotal = useCartStore((state) => state.orderTotal);
+  // const setOrderTotal = useCartStore((state) => state.setOrderTotal);
 
   const filteredProducts = useMemo(() => {
     const selectedKeys = Object.keys(selectedProducts);
@@ -26,19 +27,39 @@ export default function CartPreview() {
     return productTemp;
   }, [selectedProducts]);
 
+  // // Determine Total
+  // useEffect(() => {
+  //   let total = 0;
+
+  //   if(filteredProducts.length > 0) {
+  //     filteredProducts.forEach(item => {
+  //       total += item.price * selectedProducts[item.name]
+  //     })
+  //   }
+
+  //   setOrderTotal(total);
+  // }, [selectedProducts]);
+
   const renderItem = useCallback(({ item }: any) => {
     return <CartListItem {...item} />;
   }, []);
 
   return (
     <View style={styles.container}>
-      {/* FlashList */}
       <FlashList
         data={filteredProducts}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
-        // style={{ padding: 5 }}
       />
+      <Button
+        icon="camera"
+        mode="contained-tonal"
+        onPress={() => console.log("Pressed")}
+        style={{ margin: 40 }}
+      >
+        Checkout
+        {/* Checkout: {orderTotal} */}
+      </Button>
     </View>
   );
 }
