@@ -9,9 +9,9 @@ import { QtyButton } from "../buttons/manage-quantity";
 export type CartListItemProps = Product;
 
 export const CartListItem: FC<CartListItemProps> = memo(
-  ({ name, price, image }) => {
+  ({ name, price, quantity_available, image }) => {
     const selectedQuantity = useCartStore(
-      (state) => state.quantities[name] || 0
+      (state) => state.quantities[name]?.quantity || 0
     );
     const setQuantity = useCartStore((state) => state.setQuantity);
 
@@ -20,7 +20,7 @@ export const CartListItem: FC<CartListItemProps> = memo(
     // If exceededed - display error toast.
 
     function incrementQuantity() {
-      setQuantity(name, selectedQuantity + 1);
+      setQuantity(name, selectedQuantity + 1, price, quantity_available);
     }
 
     const canDecrement = selectedQuantity - 1 > 0;
@@ -29,7 +29,7 @@ export const CartListItem: FC<CartListItemProps> = memo(
       // ToDo: Once Toast Added:
       // Send a toast to tell user they cannot lower the quantity to less than 1 - they can clear the item from cart instead.
       if (canDecrement) {
-        setQuantity(name, selectedQuantity - 1);
+        setQuantity(name, selectedQuantity - 1, price, quantity_available);
       }
     }
 

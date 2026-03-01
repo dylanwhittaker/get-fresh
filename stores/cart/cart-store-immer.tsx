@@ -10,11 +10,15 @@ const useCartStoreWIthImmer = create<CartStoreState>()(
       set((state) => {
         state.orderTotal = value;
       }),
-    setQuantity: (id, qty) =>
+    setQuantity: (id, qty, price, quantity_available) =>
       set((state) => {
         state.quantities = {
           ...state.quantities,
-          [id]: qty
+          [id]: {
+            quantity: qty, // only modifying qty
+            price,
+            quantity_available
+          }
         };
       })
   }))

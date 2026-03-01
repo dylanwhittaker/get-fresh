@@ -8,11 +8,15 @@ const useCartStore = create<CartStoreState>()((set) => ({
     set(() => ({
       orderTotal: value
     })),
-  setQuantity: (id, qty) =>
+  setQuantity: (id, qty, price, quantity_available) =>
     set((state) => ({
       quantities: {
         ...state.quantities,
-        [id]: qty
+        [id]: {
+          quantity: qty,
+          price,
+          quantity_available
+        }
       }
     }))
 }));

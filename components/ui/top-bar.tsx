@@ -15,7 +15,7 @@ export const TopBar: FC = () => {
   const totalSelectedQuantity = useMemo(() => {
     let total = 0;
     Object.keys(quantities).forEach((key) => {
-      total += quantities[key];
+      total += quantities[key]?.quantity || 0;
     });
     return total;
   }, [quantities]);
