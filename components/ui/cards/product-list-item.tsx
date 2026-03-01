@@ -3,9 +3,9 @@ import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import { Image } from "expo-image";
 import { FC, memo } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Badge } from "react-native-paper";
-import { IconSymbol } from "../icon-symbol";
+import { QtyButton } from "../buttons/manage-quantity";
 
 export type ProductListItemProps = Product;
 
@@ -60,50 +60,14 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
           </View>
 
           {/* + */}
-          {/* todo: Make the pressable a button variant */}
-          <Pressable
-            android_ripple={{
-              color: "rgba(139, 183, 92, 0.5)",
-              foreground: true,
-              radius: 30
-            }}
-            disabled={outOfStock}
+          <QtyButton
+            variant="product"
+            icon="plus"
             onPress={incrementQuantity}
-            style={({ pressed }) => [
-              styles.pressable,
-              outOfStock && styles.disabledPressable,
-              pressed && styles.pressed
-            ]}
-          >
-            <IconSymbol
-              size={310}
-              color="#ffffff"
-              name="plus"
-              style={styles.icon}
-            />
-          </Pressable>
+            disabled={outOfStock}
+          />
 
-          {/* - | todo */}
-          {/* <Pressable
-            android_ripple={{
-              color: "rgba(202, 202, 202, 0.5)",
-              foreground: true,
-              borderless: true,
-              radius: 30
-            }}
-            onPress={() => {}}
-            style={({ pressed }) => [
-              styles.pressable,
-              pressed && styles.pressed
-            ]}
-          >
-            <IconSymbol
-              size={310}
-              color="#ffffff"
-              name="plus"
-              style={styles.icon}
-            />
-          </Pressable> */}
+          {/* Add - btn | todo */}
         </View>
       </View>
     );
