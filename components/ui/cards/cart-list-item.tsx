@@ -9,10 +9,7 @@ import { QtyButton } from "../buttons/manage-quantity";
 export type CartListItemProps = Product;
 
 export const CartListItem: FC<CartListItemProps> = memo(
-  ({ name, quantity_available, price, image }) => {
-    const formattedPrice = formatPrice(price);
-    const outOfStock = !quantity_available;
-
+  ({ name, price, image }) => {
     const selectedQuantity = useCartStore(
       (state) => state.quantities[name] || 0
     );
@@ -35,6 +32,8 @@ export const CartListItem: FC<CartListItemProps> = memo(
         setQuantity(name, selectedQuantity - 1);
       }
     }
+
+    const formattedPrice = formatPrice(price * selectedQuantity);
 
     return (
       <View style={styles.mainContainer}>
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   manageQContainer: {
-    flex: 4
+    flex: 1
   },
   pnqContainer: {
     flex: 1,

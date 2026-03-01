@@ -1,25 +1,30 @@
 import { CartListItem } from "@/components/ui/cards/cart-list-item";
-import { ProductListItemProps } from "@/components/ui/cards/product-list-item";
 import { products } from "@/data/products";
-import { useDebounce } from "@/hooks/use-debounce";
+import useCartStore from "@/stores/cart/cart-store";
+import { Product } from "@/types/product";
 import { FlashList } from "@shopify/flash-list";
 import React, { useCallback, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-products as unknown as ProductListItemProps[];
-
 export default function CartPreview() {
   const [search, setSearch] = useState("");
 
-  const debouncedSearch = useDebounce(search, 300);
+  const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
 
-  const filteredData = useMemo(() => {
-    if (!debouncedSearch) return products;
+  const filteredProducts = useMemo(() => {
+    const selectedKeys = Object.keys(selectedProducts);
+    const keysFromProducts = products.map((item) => item.name);
+    let productTemp: Product[] = [];
 
-    return products.filter((item) =>
-      item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-    );
-  }, [debouncedSearch]);
+    selectedKeys.forEach((key) => {
+      const itemIndex = keysFromProducts.indexOf(key);
+      if (itemIndex !== -1) {
+        productTemp.push(products[itemIndex]);
+      }
+    });
+
+    return productTemp;
+  }, [selectedProducts]);
 
   const renderItem = useCallback(({ item }: any) => {
     return <CartListItem {...item} />;
@@ -29,7 +34,7 @@ export default function CartPreview() {
     <View style={styles.container}>
       {/* FlashList */}
       <FlashList
-        data={filteredData}
+        data={filteredProducts}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
         // style={{ padding: 5 }}

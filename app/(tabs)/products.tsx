@@ -1,6 +1,5 @@
 import {
-  ProductListItem,
-  ProductListItemProps
+  ProductListItem
 } from "@/components/ui/cards/product-list-item";
 import { products } from "@/data/products";
 import { useDebounce } from "@/hooks/use-debounce";
@@ -8,8 +7,6 @@ import { FlashList } from "@shopify/flash-list";
 import React, { useCallback, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Searchbar } from "react-native-paper";
-
-products as unknown as ProductListItemProps[];
 
 export default function ProductCatalog() {
   const [search, setSearch] = useState("");
