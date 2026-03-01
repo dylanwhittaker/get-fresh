@@ -12,6 +12,7 @@ export default function TabLayout() {
 
   return (
     <>
+      <TopBar />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -37,8 +38,16 @@ export default function TabLayout() {
             )
           }}
         />
+        <Tabs.Screen
+          name="product-catalog"
+          options={{
+            title: "Products",
+            tabBarIcon: ({ color }) => (
+              <IconSymbol size={28} name="paperplane.fill" color={color} />
+            )
+          }}
+        />
       </Tabs>
-      <TopBar />
     </>
   );
 }

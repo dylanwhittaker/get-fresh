@@ -11,8 +11,7 @@ export const TopBar: FC = () => {
   return (
     <View
       style={{
-        position: "absolute",
-        top: insets.top,
+        marginTop: insets.top,
         width: "100%",
         display: "flex",
         flexDirection: "row",
