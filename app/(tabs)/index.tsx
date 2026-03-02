@@ -1,5 +1,5 @@
 import { ProductListItem } from "@/components/ui/cards/product-list-item";
-import { GRAYS, PRIMARY_GREEN, TEXT, WHITES } from "@/constants/theme";
+import { GRAYS, PRIMARY_GREEN, WHITES } from "@/constants/theme";
 import { products } from "@/data/products";
 import { useDebounce } from "@/hooks/use-debounce";
 import { FlashList } from "@shopify/flash-list";
@@ -49,21 +49,20 @@ export default function ProductCatalog() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: WHITES.background },
+  container: { flex: 1 },
 
   search: {
     marginTop: 12,
     marginLeft: 12,
     marginRight: 12,
-    backgroundColor: GRAYS.light,
+    backgroundColor: WHITES.pure,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: GRAYS.border
+    borderColor: GRAYS.secondary
   },
 
   searchInput: {
-    fontSize: 16,
-    color: TEXT.primary
+    fontSize: 16
   },
 
   itemContainer: {
