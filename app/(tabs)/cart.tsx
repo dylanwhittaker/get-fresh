@@ -2,6 +2,7 @@ import { CartListItem } from "@/components/ui/cards/cart-list-item";
 import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
+import { formatPrice } from "@/utils/format-price";
 import { FlashList } from "@shopify/flash-list";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
@@ -27,6 +28,9 @@ export default function CartPreview() {
     return productTemp;
   }, [selectedProducts]);
 
+  const displayTotal = !!orderTotal;
+  const checkoutEnabled = orderTotal >= 5;
+
   // Determine Total
   useEffect(() => {
     let total = 0;
@@ -50,21 +54,25 @@ export default function CartPreview() {
         data={filteredProducts}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
+        ListFooterComponent={<View style={{ height: 60 }}></View>}
       />
       <Button
-        icon="camera"
-        mode="contained-tonal"
+        icon="wallet"
+        mode="contained"
+        buttonColor="#268341"
+        textColor="white"
         onPress={() => console.log("Pressed")}
-        style={{ margin: 40 }}
+        style={{ position: "absolute", bottom: 10, left: "10%", right: "10%" }}
+        disabled={!checkoutEnabled}
       >
-        Checkout: R{orderTotal}
+        Checkout {displayTotal && `| ${formatPrice(orderTotal)}`}
       </Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: "#fff" },
 
   search: {
     marginTop: 10,

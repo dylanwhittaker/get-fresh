@@ -1,15 +1,12 @@
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import useCartStore from "@/stores/cart/cart-store";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
 import { FC, useMemo } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { Badge } from "react-native-paper";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CartNavigatorButton } from "./buttons/cart-navigator-button";
 
 export const TopBar: FC = () => {
   const insets = useSafeAreaInsets();
-  const router = useRouter();
   const quantities = useCartStore((state) => state.quantities || 0);
 
   const totalSelectedQuantity = useMemo(() => {
@@ -40,51 +37,7 @@ export const TopBar: FC = () => {
         }}
         source={require("@/assets/images/get-fresh-logo-transparent.svg")}
       />
-      <Pressable
-        android_ripple={{
-          color: "rgba(202, 202, 202, 0.5)",
-          foreground: true,
-          borderless: true,
-          radius: 30
-        }}
-        onPress={() => router.push("/cart")}
-        style={({ pressed }) => [
-          styles.iconContainer,
-          pressed && styles.pressed
-        ]}
-      >
-        {!!totalSelectedQuantity && <Badge>{totalSelectedQuantity}</Badge>}
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="cart.fill"
-          style={styles.cartIcon}
-        />
-      </Pressable>
+      <CartNavigatorButton totalSelectedQuantity={totalSelectedQuantity} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  iconContainer: {
-    height: 50,
-    width: 50,
-    // backgroundColor: "#9e9e9e",
-    margin: 5,
-    borderRadius: 30
-  },
-  pressed: {
-    opacity: 0.7
-    // backgroundColor: "red"
-  },
-  cartIcon: {
-    color: "#808080",
-    height: 30, // height & width - size SF symbols
-    width: 30,
-    left: 10,
-    top: 10,
-    fontSize: 30, // sizes material
-    position: "absolute",
-    borderRadius: 5
-  }
-});

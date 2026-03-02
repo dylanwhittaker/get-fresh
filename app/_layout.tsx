@@ -26,10 +26,6 @@ export default function RootLayout() {
           name="(tabs)"
           options={{ headerShown: false, title: "" }}
         />
-        <Stack.Screen
-          name="cart"
-          options={{ presentation: "card", title: "Cart" }}
-        />
       </Stack>
       <StatusBar style="auto" />
       <View

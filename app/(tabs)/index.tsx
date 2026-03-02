@@ -30,6 +30,9 @@ export default function ProductCatalog() {
         value={search}
         onChangeText={setSearch}
         style={styles.search}
+        inputStyle={styles.searchInput}
+        iconColor="#268341"
+        placeholderTextColor="#999"
       />
 
       {/* FlashList */}
@@ -50,7 +53,15 @@ const styles = StyleSheet.create({
   search: {
     marginTop: 10,
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#cbcbcb"
+  },
+
+  searchInput: {
+    fontSize: 16
   },
 
   itemContainer: {
