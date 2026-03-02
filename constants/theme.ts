@@ -7,6 +7,7 @@ import { Platform } from "react-native";
 
 // ============ PRIMARY BRAND COLOR ============
 export const PRIMARY_GREEN = "#268341";
+export const PRIMARY_DARK = "#383838";
 
 // ============ NEUTRAL COLORS ============
 export const WHITES = {
@@ -47,7 +48,7 @@ export const Colors = {
 	light: {
 		text: TEXT.primary,
 		background: WHITES.background,
-		tint: PRIMARY_GREEN,
+		tint: PRIMARY_DARK,
 		icon: PRIMARY_GREEN,
 		tabIconDefault: GRAYS.disabled,
 		tabIconSelected: PRIMARY_GREEN

@@ -5,6 +5,7 @@ import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import { FlashList } from "@shopify/flash-list";
+import { Image } from "expo-image";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
@@ -57,6 +58,14 @@ export default function CartPreview() {
         keyExtractor={(item) => item.name}
         ListFooterComponent={<View style={{ height: 60 }}></View>}
       />
+      {filteredProducts.length === 0 && (
+        <View style={styles.emptyCartContainer}>
+          <Image
+            style={styles.emptyCartImage}
+            source={require(`@/assets/images/empty-cart.png`)}
+          />
+        </View>
+      )}
       <Button
         icon="wallet"
         mode="contained"
@@ -75,10 +84,19 @@ export default function CartPreview() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: WHITES.background },
 
-  search: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10
+  emptyCartContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  emptyCartImage: {
+    height: 500,
+    width: 500
   },
 
   itemContainer: {
