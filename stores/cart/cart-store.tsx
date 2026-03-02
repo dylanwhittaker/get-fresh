@@ -18,7 +18,13 @@ const useCartStore = create<CartStoreState>()((set) => ({
           quantity_available
         }
       }
-    }))
+    })),
+  removeItem: (id) =>
+    set((state) => {
+      const newQuantities = { ...state.quantities };
+      delete newQuantities[id];
+      return { quantities: newQuantities };
+    })
 }));
 
 export default useCartStore;

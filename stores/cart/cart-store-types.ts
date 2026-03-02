@@ -16,4 +16,5 @@ export type CartStoreState = {
 		price: number,
 		quantity_available: number
 	) => void;
+	removeItem: (id: string) => void;
 };

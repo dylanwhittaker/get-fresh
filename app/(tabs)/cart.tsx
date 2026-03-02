@@ -9,6 +9,7 @@ import { Image } from "expo-image";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
+import { toast } from "sonner-native";
 
 export default function CartPreview() {
   const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
@@ -71,7 +72,9 @@ export default function CartPreview() {
         mode="contained"
         buttonColor={PRIMARY_GREEN}
         textColor={TEXT.white}
-        onPress={() => console.log("Pressed")}
+        onPress={() => {
+          toast("Hello, World!");
+        }}
         style={{ position: "absolute", bottom: 10, left: "10%", right: "10%" }}
         disabled={!checkoutEnabled}
       >
@@ -86,8 +89,7 @@ const styles = StyleSheet.create({
 
   emptyCartContainer: {
     position: "absolute",
-    top: 0,
-    bottom: 0,
+    top: 50,
     left: 0,
     right: 0,
     justifyContent: "center",

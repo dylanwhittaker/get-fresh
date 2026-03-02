@@ -5,6 +5,7 @@ import { formatPrice } from "@/utils/format-price";
 import { Image } from "expo-image";
 import { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { IconButton } from "react-native-paper";
 import { QtyButton } from "../buttons/manage-quantity";
 
 export type CartListItemProps = Product;
@@ -15,6 +16,7 @@ export const CartListItem: FC<CartListItemProps> = memo(
       (state) => state.quantities[name]?.quantity || 0
     );
     const setQuantity = useCartStore((state) => state.setQuantity);
+    const removeItem = useCartStore((state) => state.removeItem);
 
     // ToDo: Once Toast Added:
     // Ensure that Quantity Cannot be Exceeded - by checking "selectedQuantity + 1" value.
@@ -38,6 +40,13 @@ export const CartListItem: FC<CartListItemProps> = memo(
 
     return (
       <View style={styles.mainContainer}>
+        <IconButton
+          icon="close"
+          iconColor={PRIMARY_GREEN}
+          size={18}
+          onPress={() => removeItem(name)}
+          style={styles.removeButton}
+        />
         <View
           style={{
             display: "flex",
@@ -109,8 +118,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     padding: 12,
-    justifyContent: "space-between"
-    // margin: 5
+    justifyContent: "space-between",
+    position: "relative"
+  },
+  removeButton: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    zIndex: 1
   },
   bottomBorder: {
     position: "absolute",
