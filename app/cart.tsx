@@ -3,14 +3,14 @@ import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { FlashList } from "@shopify/flash-list";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 
 export default function CartPreview() {
   const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
-  // const orderTotal = useCartStore((state) => state.orderTotal);
-  // const setOrderTotal = useCartStore((state) => state.setOrderTotal);
+  const orderTotal = useCartStore((state) => state.orderTotal);
+  const setOrderTotal = useCartStore((state) => state.setOrderTotal);
 
   const filteredProducts = useMemo(() => {
     const selectedKeys = Object.keys(selectedProducts);
@@ -27,18 +27,18 @@ export default function CartPreview() {
     return productTemp;
   }, [selectedProducts]);
 
-  // // Determine Total
-  // useEffect(() => {
-  //   let total = 0;
+  // Determine Total
+  useEffect(() => {
+    let total = 0;
 
-  //   if(filteredProducts.length > 0) {
-  //     filteredProducts.forEach(item => {
-  //       total += item.price * selectedProducts[item.name]
-  //     })
-  //   }
+    if (filteredProducts.length > 0) {
+      filteredProducts.forEach((item) => {
+        total += item.price * selectedProducts[item.name].quantity;
+      });
+    }
 
-  //   setOrderTotal(total);
-  // }, [selectedProducts]);
+    setOrderTotal(Math.round(total * 100) / 100);
+  }, [selectedProducts]);
 
   const renderItem = useCallback(({ item }: any) => {
     return <CartListItem {...item} />;
@@ -57,8 +57,7 @@ export default function CartPreview() {
         onPress={() => console.log("Pressed")}
         style={{ margin: 40 }}
       >
-        Checkout
-        {/* Checkout: {orderTotal} */}
+        Checkout: R{orderTotal}
       </Button>
     </View>
   );
