@@ -1,26 +1,16 @@
 import { Tabs } from "expo-router";
-import React, { useMemo } from "react";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { CartIcon } from "@/components/ui/icons/cart-icon";
 import { IconSymbol } from "@/components/ui/icons/icon-symbol";
 import { TopBar } from "@/components/ui/top-bar";
 import { Colors } from "@/constants/theme";
+import { useCartCalculations } from "@/hooks/use-cart-calclutions";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import useCartStore from "@/stores/cart/cart-store";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
-  const quantities = useCartStore((state) => state.quantities || 0);
-
-  const totalSelectedQuantity = useMemo(() => {
-    let total = 0;
-    Object.keys(quantities).forEach((key) => {
-      total += quantities[key]?.quantity || 0;
-    });
-    return total;
-  }, [quantities]);
+  const { totalSelectedQuantity } = useCartCalculations();
 
   return (
     <>

@@ -1,12 +1,10 @@
 import { CartListItem } from "@/components/ui/cards/cart-list-item";
 import { PRIMARY_GREEN, TEXT, WHITES } from "@/constants/theme";
-import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
-import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 import { toast } from "sonner-native";
@@ -15,21 +13,7 @@ export default function CartPreview() {
   const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
   const orderTotal = useCartStore((state) => state.orderTotal);
   const setOrderTotal = useCartStore((state) => state.setOrderTotal);
-
-  const filteredProducts = useMemo(() => {
-    const selectedKeys = Object.keys(selectedProducts);
-    const keysFromProducts = products.map((item) => item.name);
-    let productTemp: Product[] = [];
-
-    selectedKeys.forEach((key) => {
-      const itemIndex = keysFromProducts.indexOf(key);
-      if (itemIndex !== -1) {
-        productTemp.push(products[itemIndex]);
-      }
-    });
-
-    return productTemp;
-  }, [selectedProducts]);
+  const cartItems = useCartStore((state) => state.cartItems);
 
   const displayTotal = !!orderTotal;
   const checkoutEnabled = orderTotal >= 5;
@@ -38,8 +22,8 @@ export default function CartPreview() {
   useEffect(() => {
     let total = 0;
 
-    if (filteredProducts.length > 0) {
-      filteredProducts.forEach((item) => {
+    if (cartItems.length > 0) {
+      cartItems.forEach((item) => {
         total += item.price * selectedProducts[item.name].quantity;
       });
     }
@@ -54,12 +38,12 @@ export default function CartPreview() {
   return (
     <View style={styles.container}>
       <FlashList
-        data={filteredProducts}
+        data={cartItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
         ListFooterComponent={<View style={{ height: 60 }}></View>}
       />
-      {filteredProducts.length === 0 && (
+      {cartItems.length === 0 && (
         <View style={styles.emptyCartContainer}>
           <Image
             style={styles.emptyCartImage}
@@ -73,7 +57,7 @@ export default function CartPreview() {
         buttonColor={PRIMARY_GREEN}
         textColor={TEXT.white}
         onPress={() => {
-          toast("Hello, World!");
+          toast.success("CHECKING YOU OUT!");
         }}
         style={{ position: "absolute", bottom: 10, left: "10%", right: "10%" }}
         disabled={!checkoutEnabled}

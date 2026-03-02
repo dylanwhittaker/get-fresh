@@ -4,6 +4,7 @@ import { CartStoreState } from "./cart-store-types";
 const useCartStore = create<CartStoreState>()((set) => ({
   orderTotal: 0,
   quantities: {},
+  cartItems: [],
   setOrderTotal: (value) =>
     set(() => ({
       orderTotal: value
@@ -24,7 +25,11 @@ const useCartStore = create<CartStoreState>()((set) => ({
       const newQuantities = { ...state.quantities };
       delete newQuantities[id];
       return { quantities: newQuantities };
-    })
+    }),
+  setCartItems: (value) =>
+    set(() => ({
+      cartItems: value
+    }))
 }));
 
 export default useCartStore;
