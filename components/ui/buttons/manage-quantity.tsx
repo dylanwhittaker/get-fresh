@@ -1,3 +1,4 @@
+import { GRAYS, PRIMARY_GREEN, RIPPLE, TEXT, WHITES } from "@/constants/theme";
 import { FC, memo } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { IconSymbol } from "../icon-symbol";
@@ -15,9 +16,9 @@ export const QtyButton: FC<QtyButtonProps> = memo(
     return (
       <Pressable
         android_ripple={{
-          color: variant === "product" ? "#8bb75c80" : "#8bb75c29",
+          color: variant === "product" ? RIPPLE.product : RIPPLE.cart,
           foreground: true,
-          radius: 22
+          radius: variant === "product" ? 30 : 22
         }}
         disabled={disabled}
         onPress={onPress}
@@ -48,11 +49,11 @@ export const QtyButton: FC<QtyButtonProps> = memo(
 
 const styles = StyleSheet.create({
   pressable_product: {
-    backgroundColor: "#268341"
+    backgroundColor: PRIMARY_GREEN
   },
   pressable_cart: {
-    backgroundColor: "#ffffff",
-    borderColor: "#cbcbcb",
+    backgroundColor: WHITES.pure,
+    borderColor: GRAYS.secondary,
     borderWidth: 1
   },
   pressable_m: {
@@ -66,21 +67,21 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   disabledPressable_product: {
-    backgroundColor: "#8c8c8c"
+    backgroundColor: GRAYS.disabled
   },
   disabledPressable_cart: {
-    color: "#8c8c8c"
+    color: GRAYS.disabled
   },
   pressed: {
     opacity: 0.7
   },
   icon_product: {
-    color: "#ffffff",
+    color: TEXT.white,
     position: "absolute",
     borderRadius: 5
   },
   icon_cart: {
-    color: "#268341",
+    color: PRIMARY_GREEN,
     position: "absolute",
     borderRadius: 5
   },

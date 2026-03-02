@@ -1,3 +1,4 @@
+import { GRAYS, PRIMARY_GREEN, STATUS, TEXT } from "@/constants/theme";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
@@ -45,7 +46,7 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
           <Text
             style={[
               styles.subText,
-              outOfStock && { fontWeight: 600, color: "#ba2b2b" }
+              outOfStock && { fontWeight: 600, color: STATUS.error }
             ]}
           >
             {outOfStock ? "Out of stock" : "In Stock"}
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: "#cbcbcb",
+    borderColor: GRAYS.secondary,
     borderRadius: 20,
     display: "flex",
     flexDirection: "column",
@@ -102,10 +103,10 @@ const styles = StyleSheet.create({
     width: 50,
     // margin: 5,
     borderRadius: 15,
-    backgroundColor: "#268341"
+    backgroundColor: PRIMARY_GREEN
   },
   disabledPressable: {
-    backgroundColor: "#8c8c8c"
+    backgroundColor: GRAYS.disabled
   },
   pressed: {
     opacity: 0.7
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: "#666",
+    color: TEXT.secondary,
     marginTop: 2
   },
   price: {

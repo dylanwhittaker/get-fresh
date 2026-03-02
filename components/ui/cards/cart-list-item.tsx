@@ -1,3 +1,4 @@
+import { GRAYS, PRIMARY_GREEN, TEXT } from "@/constants/theme";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     right: "5%",
     alignSelf: "center",
     height: 1,
-    backgroundColor: "#cbcbcb"
+    backgroundColor: GRAYS.secondary
   },
   groceryItemContainer: {
     display: "flex",
@@ -140,10 +141,10 @@ const styles = StyleSheet.create({
     width: 50,
     // margin: 5,
     borderRadius: 15,
-    backgroundColor: "#268341"
+    backgroundColor: PRIMARY_GREEN
   },
   disabledPressable: {
-    backgroundColor: "#8c8c8c"
+    backgroundColor: GRAYS.disabled
   },
   pressed: {
     opacity: 0.7
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: "#666",
+    color: TEXT.secondary,
     marginBottom: 10
   },
   price: {

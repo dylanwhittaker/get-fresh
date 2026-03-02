@@ -1,4 +1,5 @@
 import { CartListItem } from "@/components/ui/cards/cart-list-item";
+import { PRIMARY_GREEN, TEXT, WHITES } from "@/constants/theme";
 import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
@@ -59,8 +60,8 @@ export default function CartPreview() {
       <Button
         icon="wallet"
         mode="contained"
-        buttonColor="#268341"
-        textColor="white"
+        buttonColor={PRIMARY_GREEN}
+        textColor={TEXT.white}
         onPress={() => console.log("Pressed")}
         style={{ position: "absolute", bottom: 10, left: "10%", right: "10%" }}
         disabled={!checkoutEnabled}
@@ -72,7 +73,7 @@ export default function CartPreview() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: WHITES.background },
 
   search: {
     marginTop: 10,
