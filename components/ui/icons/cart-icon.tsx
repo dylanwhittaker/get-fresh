@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { Badge } from "react-native-paper";
-import { IconSymbol } from "../icon-symbol";
+import { IconSymbol } from "./icon-symbol";
 
 type CartButtonProps = {
   totalSelectedQuantity: number;

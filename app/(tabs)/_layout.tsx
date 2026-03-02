@@ -2,8 +2,8 @@ import { Tabs } from "expo-router";
 import React, { useMemo } from "react";
 
 import { HapticTab } from "@/components/haptic-tab";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { CartIcon } from "@/components/ui/icons/cart-icon";
+import { IconSymbol } from "@/components/ui/icons/icon-symbol";
 import { TopBar } from "@/components/ui/top-bar";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";

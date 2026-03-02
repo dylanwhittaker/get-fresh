@@ -1,7 +1,7 @@
 import { GRAYS, PRIMARY_GREEN, RIPPLE, TEXT, WHITES } from "@/constants/theme";
 import { FC, memo } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { IconSymbol } from "../icon-symbol";
+import { IconSymbol } from "../icons/icon-symbol";
 
 type QtyButtonProps = {
   variant: "product" | "cart";

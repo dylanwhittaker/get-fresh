@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import { FC } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Badge } from "react-native-paper";
-import { IconSymbol } from "../icon-symbol";
+import { IconSymbol } from "../icons/icon-symbol";
 
 type CartNavigatorButtonProps = {
   totalSelectedQuantity: number;
