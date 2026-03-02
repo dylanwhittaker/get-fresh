@@ -29,7 +29,11 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
           headerShown: false,
-          tabBarButton: HapticTab
+          tabBarButton: HapticTab,
+          tabBarStyle: {
+            paddingTop: 10,
+            height: 80
+          }
         }}
       >
         <Tabs.Screen
