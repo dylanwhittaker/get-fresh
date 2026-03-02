@@ -4,32 +4,17 @@ import useCartStore from "@/stores/cart/cart-store";
 import { formatPrice } from "@/utils/format-price";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 import { toast } from "sonner-native";
 
 export default function CartPreview() {
-  const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
   const orderTotal = useCartStore((state) => state.orderTotal);
-  const setOrderTotal = useCartStore((state) => state.setOrderTotal);
   const cartItems = useCartStore((state) => state.cartItems);
 
   const displayTotal = !!orderTotal;
   const checkoutEnabled = orderTotal >= 5;
-
-  // Determine Total
-  useEffect(() => {
-    let total = 0;
-
-    if (cartItems.length > 0) {
-      cartItems.forEach((item) => {
-        total += item.price * selectedProducts[item.name].quantity;
-      });
-    }
-
-    setOrderTotal(Math.round(total * 100) / 100);
-  }, [selectedProducts]);
 
   const renderItem = useCallback(({ item }: any) => {
     return <CartListItem {...item} />;
