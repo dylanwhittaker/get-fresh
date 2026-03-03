@@ -7,8 +7,10 @@ import { TopBar } from "@/components/ui/top-bar";
 import { Colors } from "@/constants/theme";
 import { useCartCalculations } from "@/hooks/use-cart-calclutions";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
+  const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const { totalSelectedQuantity } = useCartCalculations();
 
@@ -22,7 +24,7 @@ export default function TabLayout() {
           tabBarButton: HapticTab,
           tabBarStyle: {
             paddingTop: 10,
-            height: 80
+            height: insets.bottom + 60
           }
         }}
       >
