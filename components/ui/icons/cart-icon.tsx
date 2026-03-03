@@ -19,11 +19,6 @@ export const CartIcon: FC<CartButtonProps> = ({
         name="cart.fill"
         style={[styles.icon, { color: iconColour ?? styles.icon.color }]}
       />
-      {/* {!!totalSelectedQuantity && (
-        <Badge size={18} style={{ position: "absolute", top: 5, right: 2 }}>
-          {totalSelectedQuantity}
-        </Badge>
-      )} */}
       {!!totalSelectedQuantity && <Badge>{totalSelectedQuantity}</Badge>}
     </View>
   );

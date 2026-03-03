@@ -1,4 +1,4 @@
-import { GRAYS, PRIMARY_GREEN, STATUS, TEXT } from "@/constants/theme";
+import { GRAYS, STATUS, TEXT } from "@/constants/theme";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
@@ -27,48 +27,29 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
     return (
       <View style={styles.mainContainer}>
         <View>
-          <Image
-            style={{
-              height: 90,
-              width: "auto",
-              margin: 7
-            }}
-            source={image}
-          />
+          <Image style={styles.image} source={image} />
         </View>
         {!!selectedQuantity && (
-          <Badge style={{ position: "absolute", top: 15, right: 15 }}>
-            {selectedQuantity}
-          </Badge>
+          <Badge style={styles.badge}>{selectedQuantity}</Badge>
         )}
-        <View style={styles.content}>
+        <View>
           <Text style={styles.mainText}>{name}</Text>
-          <Text
-            style={[
-              styles.subText,
-              outOfStock && { fontWeight: 600, color: STATUS.error }
-            ]}
-          >
+          <Text style={[styles.subText, outOfStock && styles.outOfStock]}>
             {outOfStock ? "Out of stock" : "In Stock"}
           </Text>
         </View>
 
         {/* Price & Quantity Selection */}
         <View style={styles.pnqContainer}>
-          {/* Quantity */}
-          <View style={styles.content}>
+          <View>
             <Text style={styles.price}>{formattedPrice}</Text>
           </View>
-
-          {/* + */}
           <QtyButton
             variant="product"
             icon="plus"
             onPress={incrementQuantity}
             disabled={outOfStock}
           />
-
-          {/* Add - btn | todo */}
         </View>
       </View>
     );
@@ -87,35 +68,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5
   },
-  groceryItemContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
   pnqContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
-  },
-  pressable: {
-    height: 50,
-    width: 50,
-    // margin: 5,
-    borderRadius: 15,
-    backgroundColor: PRIMARY_GREEN
-  },
-  disabledPressable: {
-    backgroundColor: GRAYS.disabled
-  },
-  pressed: {
-    opacity: 0.7
-  },
-  content: {
-    // flex: 1
-  },
-  right: {
-    marginLeft: 12
   },
   mainText: {
     fontSize: 16,
@@ -130,14 +87,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600"
   },
-  icon: {
-    color: "#ffffff",
-    height: 30, // height & width - size SF symbols
-    width: 30,
-    left: 10,
-    top: 10,
-    fontSize: 30, // sizes material
+  image: {
+    height: 90,
+    width: "auto",
+    margin: 7
+  },
+  badge: {
     position: "absolute",
-    borderRadius: 5
+    top: 15,
+    right: 15
+  },
+  outOfStock: {
+    fontWeight: 600,
+    color: STATUS.error
   }
 });

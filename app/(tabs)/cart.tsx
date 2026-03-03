@@ -26,7 +26,7 @@ export default function CartPreview() {
         data={cartItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
-        ListFooterComponent={<View style={{ height: 60 }}></View>}
+        ListFooterComponent={<View style={styles.listFooter}></View>}
       />
       {cartItems.length === 0 && (
         <View style={styles.emptyCartContainer}>
@@ -42,9 +42,9 @@ export default function CartPreview() {
         buttonColor={PRIMARY_GREEN}
         textColor={TEXT.white}
         onPress={() => {
-          toast.success("CHECKING YOU OUT!");
+          toast.success("CHECKING YOU OUT");
         }}
-        style={{ position: "absolute", bottom: 10, left: "10%", right: "10%" }}
+        style={styles.cartButton}
         disabled={!checkoutEnabled}
       >
         Checkout {displayTotal && `| ${formatPrice(orderTotal)}`}
@@ -55,7 +55,7 @@ export default function CartPreview() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: WHITES.background },
-
+  cartButton: { position: "absolute", bottom: 10, left: "10%", right: "10%" },
   emptyCartContainer: {
     position: "absolute",
     top: 50,
@@ -64,31 +64,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-
   emptyCartImage: {
     height: 500,
     width: 500
   },
-
-  itemContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
-    borderBottomWidth: 1
-  },
-
-  title: {
-    fontSize: 16
-  },
-
-  button: {
-    backgroundColor: "black",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6
-  },
-
-  buttonText: {
-    color: "white"
+  listFooter: {
+    height: 60
   }
 });

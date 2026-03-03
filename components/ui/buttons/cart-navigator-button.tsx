@@ -8,6 +8,10 @@ type CartNavigatorButtonProps = {
   totalSelectedQuantity: number;
 };
 
+/**
+ * NOTE: This component is current inert.
+ * It would have been used - if the cart navigator was to be placed in the top-bar
+ */
 export const CartNavigatorButton: FC<CartNavigatorButtonProps> = ({
   totalSelectedQuantity
 }) => {

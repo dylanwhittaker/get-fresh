@@ -50,7 +50,6 @@ export default function ProductCatalog() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-
   search: {
     marginTop: 12,
     marginLeft: 12,
@@ -60,29 +59,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: GRAYS.secondary
   },
-
   searchInput: {
     fontSize: 16
   },
-
   itemContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 16,
     borderBottomWidth: 1
   },
-
   title: {
     fontSize: 16
   },
-
   button: {
     backgroundColor: "black",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6
   },
-
   buttonText: {
     color: "white"
   }

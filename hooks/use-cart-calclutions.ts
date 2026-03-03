@@ -5,7 +5,7 @@ import { toast } from "sonner-native";
 
 export const useCartCalculations = () => {
 	const hasNotifiedRef = useRef(false);
-	const selectedProducts = useCartStore((state) => state.quantities || {}); // Ref changed on each update - so this should be viable
+	const selectedProducts = useCartStore((state) => state.quantities || {});
 	const orderTotal = useCartStore((state) => state.orderTotal);
 	const setOrderTotal = useCartStore((state) => state.setOrderTotal);
 	const setCartItems = useCartStore((state) => state.setCartItems);
