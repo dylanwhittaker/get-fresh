@@ -24,5 +24,18 @@ jest.mock("react-native-paper", () => ({
     <div testID="quantity-badge" {...props}>
       {children}
     </div>
+  ),
+  IconButton: ({ icon, onPress, disabled, ...props }: any) => (
+    <button
+      testID="icon-button"
+      onClick={onPress}
+      disabled={disabled}
+      {...props}
+    />
+  ),
+  Button: ({ onPress, disabled, children, ...props }: any) => (
+    <button testID="button" onClick={onPress} disabled={disabled} {...props}>
+      {children}
+    </button>
   )
 }));

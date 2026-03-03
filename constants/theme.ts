@@ -11,23 +11,23 @@ export const PRIMARY_DARK = "#383838";
 
 // ============ NEUTRAL COLORS ============
 export const WHITES = {
-	pure: "#ffffff",
+	plain: "#ffffff",
 	background: "#fff"
 };
 
 export const GRAYS = {
-	light: "#F5F5F5", // Light backgrounds (SearchBar)
-	border: "#E8E8E8", // Light borders (SearchBar)
-	secondary: "#cbcbcb", // Secondary borders (Cards)
-	text: "#999999", // Placeholder text
-	disabled: "#8c8c8c" // Disabled button states
+	light: "#F5F5F5",
+	border: "#E8E8E8",
+	secondary: "#cbcbcb",
+	text: "#999999",
+	disabled: "#8c8c8c"
 };
 
 // ============ TEXT COLORS ============
 export const TEXT = {
-	primary: "#333333", // Main text
-	secondary: "#666666", // Secondary text (subText)
-	white: "#ffffff" // White text
+	primary: "#333333",
+	secondary: "#666666",
+	white: "#ffffff"
 };
 
 // ============ STATUS COLORS ============

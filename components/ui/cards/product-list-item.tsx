@@ -1,7 +1,7 @@
 import { GRAYS, STATUS, TEXT } from "@/constants/theme";
 import useCartStore from "@/stores/cart/cart-store";
 import { Product } from "@/types/product";
-import { formatPrice } from "@/utils/format-price";
+import { formatPrice } from "@/utils/helpers/format-price";
 import { Image } from "expo-image";
 import { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";

@@ -1,7 +1,7 @@
 import { CartListItem } from "@/components/ui/cards/cart-list-item";
 import { PRIMARY_GREEN, TEXT, WHITES } from "@/constants/theme";
 import useCartStore from "@/stores/cart/cart-store";
-import { formatPrice } from "@/utils/format-price";
+import { formatPrice } from "@/utils/helpers/format-price";
 import { FlashList } from "@shopify/flash-list";
 import { Image } from "expo-image";
 import React, { useCallback } from "react";

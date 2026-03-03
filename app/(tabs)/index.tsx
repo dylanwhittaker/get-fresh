@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginLeft: 12,
     marginRight: 12,
-    backgroundColor: WHITES.pure,
+    backgroundColor: WHITES.plain,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: GRAYS.secondary

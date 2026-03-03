@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_GREEN
   },
   pressable_cart: {
-    backgroundColor: WHITES.pure,
+    backgroundColor: WHITES.plain,
     borderColor: GRAYS.secondary,
     borderWidth: 1
   },
