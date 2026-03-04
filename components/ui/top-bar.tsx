@@ -10,7 +10,7 @@ export const TopBar: FC = () => {
     <View style={[{ marginTop: insets.top }, styles.container]}>
       <Image
         style={styles.image}
-        source={require("@/assets/images/get-fresh-logo-transparent.svg")}
+        source={require("@/assets/images/GET-FRESH-logo-transparent.svg")}
       />
     </View>
   );
