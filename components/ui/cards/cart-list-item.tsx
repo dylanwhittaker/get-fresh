@@ -13,20 +13,32 @@ export type CartListItemProps = Product;
 export const CartListItem: FC<CartListItemProps> = memo(
   ({ name, price, quantity_available, image }) => {
     const selectedQuantity = useCartStore(
-      (state) => state.quantities[name]?.quantity || 0
+      (state) => state.cartItems[name]?.quantity || 0
     );
-    const setQuantity = useCartStore((state) => state.setQuantity);
+    const setCartItem = useCartStore((state) => state.setCartItem);
     const removeItem = useCartStore((state) => state.removeItem);
 
     function incrementQuantity() {
-      setQuantity(name, selectedQuantity + 1, price, quantity_available);
+      setCartItem({
+        name,
+        quantity: selectedQuantity + 1,
+        price,
+        quantity_available,
+        image
+      });
     }
 
     const canDecrement = selectedQuantity - 1 > 0;
 
     function decrementQuantity() {
       if (canDecrement) {
-        setQuantity(name, selectedQuantity - 1, price, quantity_available);
+        setCartItem({
+          name,
+          quantity: selectedQuantity - 1,
+          price,
+          quantity_available,
+          image
+        });
       }
     }
 

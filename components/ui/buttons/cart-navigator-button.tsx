@@ -26,13 +26,13 @@ export const CartNavigatorButton: FC<CartNavigatorButtonProps> = ({
       onPress={() => router.push("/cart")}
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
     >
-      {!!totalSelectedQuantity && <Badge>{totalSelectedQuantity}</Badge>}
       <IconSymbol
         size={310}
         color={styles.icon.color}
         name="cart.fill"
         style={styles.icon}
       />
+      {!!totalSelectedQuantity && <Badge>{totalSelectedQuantity}</Badge>}
     </Pressable>
   );
 };

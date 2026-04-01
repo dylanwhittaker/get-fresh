@@ -3,33 +3,24 @@ import { CartStoreState } from "./cart-store-types";
 
 const useCartStore = create<CartStoreState>()((set) => ({
   orderTotal: 0,
-  quantities: {},
-  cartItems: [],
+  cartItems: {},
   setOrderTotal: (value) =>
     set(() => ({
       orderTotal: value
     })),
-  setQuantity: (id, qty, price, quantity_available) =>
+  setCartItem: (payload) =>
     set((state) => ({
-      quantities: {
-        ...state.quantities,
-        [id]: {
-          quantity: qty,
-          price,
-          quantity_available
-        }
+      cartItems: {
+        ...state.cartItems,
+        [payload.name]: payload
       }
     })),
   removeItem: (id) =>
     set((state) => {
-      const newQuantities = { ...state.quantities };
+      const newQuantities = { ...state.cartItems };
       delete newQuantities[id];
-      return { quantities: newQuantities };
-    }),
-  setCartItems: (value) =>
-    set(() => ({
-      cartItems: value
-    }))
+      return { cartItems: newQuantities };
+    })
 }));
 
 export default useCartStore;

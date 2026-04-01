@@ -11,12 +11,14 @@ type QtyButtonProps = {
   disabled?: boolean;
 };
 
+// To handle inline conditionals you could create a mapping using
+
 export const QtyButton: FC<QtyButtonProps> = memo(
   ({ variant = "product", icon = "plus", onPress, size = "m", disabled }) => {
     return (
       <Pressable
         android_ripple={{
-          color: variant === "product" ? RIPPLE.product : RIPPLE.cart,
+          color: RIPPLE[variant],
           foreground: true,
           radius: variant === "product" ? 30 : 22
         }}

@@ -37,6 +37,10 @@ export default function RootLayout() {
             name="(tabs)"
             options={{ headerShown: false, title: "" }}
           />
+          <Stack.Screen
+            name="checkout"
+            options={{ presentation: "modal", title: "Modal" }}
+          />
         </Stack>
         <StatusBar style="auto" />
         <View

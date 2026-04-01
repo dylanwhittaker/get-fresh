@@ -16,12 +16,18 @@ export const ProductListItem: FC<ProductListItemProps> = memo(
     const outOfStock = !quantity_available;
 
     const selectedQuantity = useCartStore(
-      (state) => state.quantities[name]?.quantity || 0
+      (state) => state.cartItems[name]?.quantity || 0
     );
-    const setQuantity = useCartStore((state) => state.setQuantity);
+    const setCartItem = useCartStore((state) => state.setCartItem);
 
     function incrementQuantity() {
-      setQuantity(name, selectedQuantity + 1, price, quantity_available);
+      setCartItem({
+        name,
+        quantity: selectedQuantity + 1,
+        price,
+        quantity_available,
+        image
+      });
     }
 
     return (

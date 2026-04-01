@@ -1,43 +1,42 @@
 jest.mock("sonner-native");
 jest.mock("@/data/products", () => ({
 	products: [
-		{ name: "ProductA", price: 1000 },
-		{ name: "ProductB", price: 2000 },
-		{ name: "ProductC", price: 1500 }
+		{ name: "ProductA", price: 1000, image: 2 },
+		{ name: "ProductB", price: 2000, image: 3 },
+		{ name: "ProductC", price: 1500, image: 4 }
 	]
 }));
 
 import useCartStore from "@/stores/cart/cart-store";
-import { mockQuantities } from "@/utils/mocks/data-mock";
+import { mockCartItems } from "@/utils/mocks/data-mock";
 import { renderHook } from "@testing-library/react-native";
 import { toast } from "sonner-native";
 import { useCartCalculations } from "../use-cart-calclutions";
 
-const mockQuantitiesFn = (name: string, quantity: number) => ({
-	...mockQuantities,
+const mockCartItemsFn = (name: string, quantity: number) => ({
+	...mockCartItems,
 	...{ name, quantity }
 });
 
-const ProductA = mockQuantitiesFn("Product A", 2);
-const ProductB = mockQuantitiesFn("Product B", 3);
-const ProductC = mockQuantitiesFn("Product C", 5);
-const ProductD = mockQuantitiesFn("Product B", 3);
+const ProductA = mockCartItemsFn("Product A", 2);
+const ProductB = mockCartItemsFn("Product B", 3);
+const ProductC = mockCartItemsFn("Product C", 5);
+const ProductD = mockCartItemsFn("Product B", 3);
 
 describe("useCartCalculations", () => {
 	beforeEach(() => {
 		useCartStore.setState({
-			quantities: {},
+			cartItems: {},
 			orderTotal: 0,
-			cartItems: [],
 			setOrderTotal: jest.fn(),
-			setCartItems: jest.fn()
+			setCartItem: jest.fn()
 		});
 		jest.clearAllMocks();
 	});
 
 	it("calculates total quantity correctly and ignores empty cart", () => {
 		useCartStore.setState({
-			quantities: { ProductA, ProductB }
+			cartItems: { ProductA, ProductB }
 		});
 
 		const { result } = renderHook(() => useCartCalculations());
@@ -51,7 +50,7 @@ describe("useCartCalculations", () => {
 		const setCartItemsSpy = jest.fn();
 
 		useCartStore.setState({
-			quantities: {
+			cartItems: {
 				ProductB,
 				ProductA
 			},
@@ -74,7 +73,7 @@ describe("useCartCalculations", () => {
 		const setOrderTotalSpy = jest.fn();
 
 		useCartStore.setState({
-			quantities: { ProductC },
+			cartItems: { ProductC },
 			orderTotal: 10,
 			setOrderTotal: setOrderTotalSpy
 		});
@@ -89,7 +88,7 @@ describe("useCartCalculations", () => {
 		const setCartItemsSpy = jest.fn();
 
 		useCartStore.setState({
-			quantities: {},
+			cartItems: {},
 			setOrderTotal: setOrderTotalSpy,
 			setCartItems: setCartItemsSpy
 		});

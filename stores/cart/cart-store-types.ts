@@ -1,24 +1,19 @@
-import { Product } from "@/types/product";
+import { ImageSource } from "expo-image";
 
 export type CartItem = {
-	quantity: number;
+	name: string; // doubles as id
+	quantity: number; // selected quantity
 	price: number;
 	quantity_available: number;
+	image: ImageSource;
 };
 
-type SelectedQuantities = Record<string, CartItem>;
+type SelectedProducts = Record<string, CartItem>;
 
 export type CartStoreState = {
 	orderTotal: number;
 	setOrderTotal: (value: number) => void;
-	cartItems: Product[];
-	setCartItems: (value: Product[]) => void;
-	quantities: SelectedQuantities;
-	setQuantity: (
-		id: string,
-		qty: number,
-		price: number,
-		quantity_available: number
-	) => void;
+	cartItems: SelectedProducts;
+	setCartItem: (item: CartItem) => void;
 	removeItem: (id: string) => void;
 };

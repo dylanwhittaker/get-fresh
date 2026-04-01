@@ -5,4 +5,9 @@ export const mockProduct = {
 	image: require("@/assets/images/favicon.png")
 };
 
-export const mockQuantities = { quantity: 3, price: 1, quantity_available: 10 };
+export const mockCartItems = {
+	quantity: 3,
+	price: 1,
+	quantity_available: 10,
+	image: require("@/assets/images/favicon.png")
+};

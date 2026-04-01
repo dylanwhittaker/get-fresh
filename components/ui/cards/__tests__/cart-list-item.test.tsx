@@ -1,13 +1,13 @@
 import useCartStore from "@/stores/cart/cart-store";
 import "@/utils/mocks/component-mocks";
-import { mockProduct, mockQuantities } from "@/utils/mocks/data-mock";
+import { mockCartItems, mockProduct } from "@/utils/mocks/data-mock";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { CartListItem } from "../cart-list-item";
 
 describe("CartListItem", () => {
   beforeEach(() => {
     useCartStore.setState({
-      quantities: {},
+      cartItems: {},
       orderTotal: 0,
       cartItems: []
     });
@@ -22,7 +22,7 @@ describe("CartListItem", () => {
 
   it("displays quantity and does not display zero quantity", () => {
     useCartStore.setState({
-      quantities: { "Test Product": mockQuantities }
+      cartItems: { "Test Product": mockCartItems }
     });
     render(<CartListItem {...mockProduct} />);
     expect(screen.getByText("3")).toBeTruthy();
@@ -36,9 +36,9 @@ describe("CartListItem", () => {
 
   it("increments quantity when plus button is pressed and does not go negative", () => {
     useCartStore.setState({
-      quantities: { "Test Product": mockQuantities }
+      cartItems: { "Test Product": mockCartItems }
     });
-    const spy = jest.spyOn(useCartStore.getState(), "setQuantity");
+    const spy = jest.spyOn(useCartStore.getState(), "setCartItem");
     render(<CartListItem {...mockProduct} />);
     const [plusButton] = screen.getAllByTestId("qty-button");
     fireEvent.press(plusButton);
@@ -47,9 +47,9 @@ describe("CartListItem", () => {
 
   it("decrements quantity and does not decrement below 1", () => {
     useCartStore.setState({
-      quantities: { "Test Product": mockQuantities }
+      cartItems: { "Test Product": mockCartItems }
     });
-    const spy = jest.spyOn(useCartStore.getState(), "setQuantity");
+    const spy = jest.spyOn(useCartStore.getState(), "setCartItem");
     render(<CartListItem {...mockProduct} />);
     const buttons = screen.getAllByTestId("qty-button");
     const minusButton = buttons[buttons.length - 1];
@@ -60,7 +60,7 @@ describe("CartListItem", () => {
 
   it("disables minus button when quantity is 1 and enables it when quantity is higher", () => {
     useCartStore.setState({
-      quantities: { "Test Product": { ...mockQuantities, quantity: 1 } }
+      cartItems: { "Test Product": { ...mockCartItems, quantity: 1 } }
     });
     render(<CartListItem {...mockProduct} />);
     const buttons = screen.getAllByTestId("qty-button");
@@ -79,7 +79,7 @@ describe("CartListItem", () => {
 
   it("shows formatted price and updates when quantity changes", () => {
     useCartStore.setState({
-      quantities: { "Test Product": mockQuantities }
+      cartItems: { "Test Product": mockCartItems }
     });
     render(<CartListItem {...mockProduct} />);
     expect(screen.getByText(/R\d+/)).toBeTruthy();

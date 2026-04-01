@@ -1,13 +1,13 @@
 import useCartStore from "@/stores/cart/cart-store";
 import "@/utils/mocks/component-mocks";
-import { mockProduct, mockQuantities } from "@/utils/mocks/data-mock";
+import { mockCartItems, mockProduct } from "@/utils/mocks/data-mock";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { ProductListItem } from "../product-list-item";
 
 describe("ProductListItem", () => {
   beforeEach(() => {
     useCartStore.setState({
-      quantities: {},
+      cartItems: {},
       orderTotal: 0,
       cartItems: []
     });
@@ -43,8 +43,8 @@ describe("ProductListItem", () => {
 
     it("should show quantity badge when selectedQuantity is greater than 0", () => {
       useCartStore.setState({
-        quantities: {
-          "Test Product": mockQuantities
+        cartItems: {
+          "Test Product": mockCartItems
         }
       });
       render(<ProductListItem {...mockProduct} />);
@@ -61,7 +61,7 @@ describe("ProductListItem", () => {
     });
 
     it("should handle missing quantity in cart store state", () => {
-      const spy = jest.spyOn(useCartStore.getState(), "setQuantity");
+      const spy = jest.spyOn(useCartStore.getState(), "setCartItem");
       render(<ProductListItem {...mockProduct} />);
       const qtyButton = screen.getByTestId("qty-button");
       fireEvent.press(qtyButton);
@@ -74,11 +74,11 @@ describe("ProductListItem", () => {
       expect(badge).toBeNull();
     });
 
-    it("should call setQuantity when qty button is pressed", () => {
+    it("should call setCartItem when qty button is pressed", () => {
       useCartStore.setState({
-        quantities: { "Test Product": mockQuantities }
+        cartItems: { "Test Product": mockCartItems }
       });
-      const spy = jest.spyOn(useCartStore.getState(), "setQuantity");
+      const spy = jest.spyOn(useCartStore.getState(), "setCartItem");
       render(<ProductListItem {...mockProduct} />);
       const qtyButton = screen.getByTestId("qty-button");
       fireEvent.press(qtyButton);

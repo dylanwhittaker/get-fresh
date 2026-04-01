@@ -1,22 +1,16 @@
-import { products } from "@/data/products";
 import useCartStore from "@/stores/cart/cart-store";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "sonner-native";
 
 export const useCartCalculations = () => {
 	const hasNotifiedRef = useRef(false);
-	const selectedProducts = useCartStore((state) => state.quantities || {});
+	const selectedProducts = useCartStore((state) => state.cartItems || {});
 	const orderTotal = useCartStore((state) => state.orderTotal);
 	const setOrderTotal = useCartStore((state) => state.setOrderTotal);
-	const setCartItems = useCartStore((state) => state.setCartItems);
 
-	const totalSelectedQuantity = useMemo(
-		() =>
-			Object.values(selectedProducts).reduce(
-				(sum, item) => sum + item.quantity,
-				0
-			),
-		[selectedProducts]
+	const products = Object.values(selectedProducts);
+	const totalSelectedQuantity = useCartStore((s) =>
+		Object.values(s.cartItems).reduce((sum, item) => sum + item.quantity, 0)
 	);
 
 	// Notify user of free delivery
@@ -33,18 +27,11 @@ export const useCartCalculations = () => {
 
 	// Determine Total
 	useEffect(() => {
-		let total = 0;
-		const filteredProducts = products.filter(
-			(product) => product.name in selectedProducts
+		const total = products.reduce(
+			(sum, item) => sum + item.price * item.quantity,
+			0
 		);
 
-		if (filteredProducts.length > 0) {
-			filteredProducts.forEach((item) => {
-				total += item.price * selectedProducts[item.name].quantity;
-			});
-		}
-
-		setCartItems(filteredProducts);
 		setOrderTotal(Math.round(total * 100) / 100);
 	}, [selectedProducts]);
 

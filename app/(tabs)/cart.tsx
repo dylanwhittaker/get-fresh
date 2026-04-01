@@ -16,6 +16,8 @@ export default function CartPreview() {
   const displayTotal = !!orderTotal;
   const checkoutEnabled = orderTotal >= 5;
 
+  const products = Object.values(cartItems);
+
   const renderItem = useCallback(({ item }: any) => {
     return <CartListItem {...item} />;
   }, []);
@@ -23,12 +25,12 @@ export default function CartPreview() {
   return (
     <View style={styles.container}>
       <FlashList
-        data={cartItems}
+        data={products}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
         ListFooterComponent={<View style={styles.listFooter}></View>}
       />
-      {cartItems.length === 0 && (
+      {products.length === 0 && (
         <View style={styles.emptyCartContainer}>
           <Image
             style={styles.emptyCartImage}
