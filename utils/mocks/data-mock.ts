@@ -1,11 +1,12 @@
-export const mockProduct = {
+export const mockCartItem1 = {
 	name: "Test Product",
 	quantity_available: 10,
 	price: 2500,
 	image: require("@/assets/images/favicon.png")
 };
 
-export const mockCartItems = {
+export const mockCartItem2 = {
+	name: "Test Product",
 	quantity: 3,
 	price: 1,
 	quantity_available: 10,

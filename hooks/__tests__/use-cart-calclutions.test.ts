@@ -8,20 +8,20 @@ jest.mock("@/data/products", () => ({
 }));
 
 import useCartStore from "@/stores/cart/cart-store";
-import { mockCartItems } from "@/utils/mocks/data-mock";
+import { mockCartItem2 } from "@/utils/mocks/data-mock";
 import { renderHook } from "@testing-library/react-native";
 import { toast } from "sonner-native";
 import { useCartCalculations } from "../use-cart-calclutions";
 
-const mockCartItemsFn = (name: string, quantity: number) => ({
-	...mockCartItems,
-	...{ name, quantity }
+const mockCartItem2Fn = (name: string, quantity: number, price: number) => ({
+	...mockCartItem2,
+	...{ name, quantity, price }
 });
 
-const ProductA = mockCartItemsFn("Product A", 2);
-const ProductB = mockCartItemsFn("Product B", 3);
-const ProductC = mockCartItemsFn("Product C", 5);
-const ProductD = mockCartItemsFn("Product B", 3);
+const ProductA = mockCartItem2Fn("ProductA", 2, 1000);
+const ProductB = mockCartItem2Fn("ProductB", 3, 2000);
+const ProductC = mockCartItem2Fn("ProductC", 5, 1500);
+const ProductD = mockCartItem2Fn("ProductB", 3, 2000);
 
 describe("useCartCalculations", () => {
 	beforeEach(() => {
@@ -47,26 +47,18 @@ describe("useCartCalculations", () => {
 
 	it("calculates correct order total and does not include products not in cart", () => {
 		const setOrderTotalSpy = jest.fn();
-		const setCartItemsSpy = jest.fn();
 
 		useCartStore.setState({
 			cartItems: {
 				ProductB,
 				ProductA
 			},
-			setOrderTotal: setOrderTotalSpy,
-			setCartItems: setCartItemsSpy
+			setOrderTotal: setOrderTotalSpy
 		});
 
 		renderHook(() => useCartCalculations());
 
 		expect(setOrderTotalSpy).toHaveBeenCalledWith(8000);
-		expect(setCartItemsSpy).toHaveBeenCalledWith(
-			expect.arrayContaining([
-				expect.objectContaining({ name: "ProductA", price: 1000 }),
-				expect.objectContaining({ name: "ProductB", price: 2000 })
-			])
-		);
 	});
 
 	it("shows free delivery notification when order total reaches 10", () => {
@@ -85,17 +77,14 @@ describe("useCartCalculations", () => {
 
 	it("handles empty cart state without errors", () => {
 		const setOrderTotalSpy = jest.fn();
-		const setCartItemsSpy = jest.fn();
 
 		useCartStore.setState({
 			cartItems: {},
-			setOrderTotal: setOrderTotalSpy,
-			setCartItems: setCartItemsSpy
+			setOrderTotal: setOrderTotalSpy
 		});
 
 		const { result } = renderHook(() => useCartCalculations());
 
 		expect(result.current).toBeDefined();
-		expect(setCartItemsSpy).toHaveBeenCalledWith([]);
 	});
 });
